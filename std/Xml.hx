@@ -145,6 +145,9 @@ class Xml {
 	**/
 	public var parent(default, null):Xml;
 
+	public var __userData:Dynamic;
+	public var lineNumber:Int;
+
 	var children:Array<Xml>;
 	var attributeMap:Map<String, String>;
 

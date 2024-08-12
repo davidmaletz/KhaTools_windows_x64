@@ -29,7 +29,7 @@ class Methods {
 	/**
 		The initialize request is sent from the client to Haxe to determine the capabilities.
 	**/
-	static inline var Initialize = new HaxeRequestMethod<InitializeParams, InitializeResult>("initialize");
+	static #if !(kha_html5) inline #end var Initialize = new HaxeRequestMethod<InitializeParams, InitializeResult>("initialize");
 }
 
 /* Initialize */

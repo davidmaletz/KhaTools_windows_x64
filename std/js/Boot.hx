@@ -215,7 +215,7 @@ class Boot {
 		if (o == null || __instanceof(o, t))
 			return o;
 		else
-			throw "Cannot cast " + Std.string(o) + " to " + Std.string(t);
+			throw "Cannot cast " + Type.getClassName(Type.getClass(o)) + " to " + Type.getClassName(t);
 	}
 
 	static var __toStr:js.lib.Function;

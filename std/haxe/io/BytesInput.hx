@@ -36,7 +36,11 @@ class BytesInput extends Input {
 	/** The length of the stream in bytes. */
 	public var length(get, never):Int;
 
-	public function new(b:Bytes, ?pos:Int, ?len:Int) {
+	public function new(b:Bytes, ?pos:Int, ?len:Int) {if(b != null) set(b, pos, len);}
+	#if !flash
+	public inline function clear():Void {pos = 0; len = 0; totlen = 0; b = null;}
+	#end
+	public function set(b:Bytes, ?pos:Int, ?len:Int) {
 		if (pos == null)
 			pos = 0;
 		if (len == null)

@@ -114,9 +114,11 @@ class Parser {
 	**/
 	static public function parse(str:String, strict = false) {
 		var doc = Xml.createDocument();
-		doParse(str, strict, 0, doc);
+		lineNumber = 1; doParse(str, strict, 0, doc);
 		return doc;
 	}
+
+	private static var lineNumber:Int;
 
 	static function doParse(str:String, strict:Bool, p:Int = 0, ?parent:Xml):Int {
 		var xml:Xml = null;
@@ -136,6 +138,7 @@ class Parser {
 		}
 		while (p < str.length) {
 			var c = str.unsafeCodeAt(p);
+			if(c == '\n'.code) lineNumber++;
 			switch (state) {
 				case S.IGNORE_SPACES:
 					switch (c) {
@@ -216,7 +219,7 @@ class Parser {
 						if (p == start)
 							throw new XmlParserException("Expected node name", str, p);
 						xml = Xml.createElement(str.substr(start, p - start));
-						addChild(xml);
+						xml.lineNumber = lineNumber; addChild(xml);
 						state = S.IGNORE_SPACES;
 						next = S.BODY;
 						continue;
